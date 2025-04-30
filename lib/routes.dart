@@ -4,4 +4,6 @@ final class Routes {
   static const String x01Config = "/x01_config";
 
   static const String x01 = "/x01";
+
+  static const String settings = "/settings";
 }

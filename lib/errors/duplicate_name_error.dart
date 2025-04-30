@@ -1,0 +1,1 @@
+final class DuplicateNameError extends Error {}

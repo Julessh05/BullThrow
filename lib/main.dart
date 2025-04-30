@@ -1,8 +1,10 @@
 import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:bloc_implementation/bloc_implementation.dart';
+import 'package:bull_throw/blocs/settings_bloc.dart';
 import 'package:bull_throw/blocs/x01_config_bloc.dart';
 import 'package:bull_throw/routes.dart';
 import 'package:bull_throw/views/homescreen.dart';
+import 'package:bull_throw/views/settings_screen.dart';
 import 'package:bull_throw/views/x01_config_screen.dart';
 import 'package:bull_throw/views/x01_screen.dart';
 import 'package:flutter/material.dart';
@@ -59,6 +61,8 @@ class _BullThrowAppState extends State<BullThrowApp> {
             (_) => BlocParent(bloc: X01ConfigBloc(), child: X01ConfigScreen()),
         Routes.x01:
             (_) => BlocParent(bloc: X01ConfigBloc(), child: X01Screen()),
+        Routes.settings:
+            (_) => BlocParent(bloc: SettingsBloc(), child: SettingsScreen()),
       },
     );
   }

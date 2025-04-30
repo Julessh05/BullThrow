@@ -10,6 +10,14 @@ class Homescreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("BullThrow"),
         automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed(Routes.settings);
+            },
+            icon: Icon(Icons.settings),
+          ),
+        ],
       ),
       body: ListView(
         children: [
