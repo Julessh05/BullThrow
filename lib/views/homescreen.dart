@@ -16,22 +16,14 @@ class Homescreen extends StatelessWidget {
           ListTile(
             title: Text("X01"),
             onTap: () {
-              Navigator.of(context).pushNamed(Routes.x01);
+              Navigator.of(context).pushNamed(Routes.x01Config);
             },
           ),
-          ListTile(
-            title: Text("Cricket"),
-          ),
-          ListTile(
-            title: Text("Around the clock"),
-          ),
-          ListTile(
-            title: Text("Killer"),
-          ),
-          ListTile(
-            title: Text("Shanghai"),
-          )
-        ]
+          ListTile(title: Text("Cricket")),
+          ListTile(title: Text("Around the clock")),
+          ListTile(title: Text("Killer")),
+          ListTile(title: Text("Shanghai")),
+        ],
       ),
     );
   }

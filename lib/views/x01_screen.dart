@@ -6,18 +6,16 @@ final class X01Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("X01"),
-        automaticallyImplyLeading: true,
-      ),
+      appBar: AppBar(title: Text("X01"), automaticallyImplyLeading: true),
       body: Column(
         children: [
           Container(),
           ListView.builder(
-              itemBuilder: (context, counter) {
-
-              },
-          )
+            itemBuilder: (context, counter) {
+              // TODO: implement listview builder
+              return Placeholder();
+            },
+          ),
         ],
       ),
     );

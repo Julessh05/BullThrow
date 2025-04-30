@@ -24,8 +24,7 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "dev.jules.bullthrow.bull_throw"
+        applicationId = "dev.jules.bullthrow"
         minSdk = 35
         targetSdk = 36
         // You can update the following values to match your application needs.
@@ -45,7 +44,6 @@ android {
             multiDexEnabled = true
             isDebuggable = false
             isJniDebuggable = false
-            isRenderscriptDebuggable = false
         }
     }
     buildToolsVersion = "36.0.0"
