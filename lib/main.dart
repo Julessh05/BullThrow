@@ -1,8 +1,13 @@
+import 'dart:collection';
+
 import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:bloc_implementation/bloc_implementation.dart';
 import 'package:bull_throw/blocs/settings_bloc.dart';
+import 'package:bull_throw/blocs/x01_bloc.dart';
 import 'package:bull_throw/blocs/x01_config_bloc.dart';
+import 'package:bull_throw/models/player.dart';
 import 'package:bull_throw/routes.dart';
+import 'package:bull_throw/views/error_screen.dart';
 import 'package:bull_throw/views/homescreen.dart';
 import 'package:bull_throw/views/settings_screen.dart';
 import 'package:bull_throw/views/x01_config_screen.dart';
@@ -59,10 +64,23 @@ class _BullThrowAppState extends State<BullThrowApp> {
             (_) => BlocParent(bloc: HomescreenBloc(), child: Homescreen()),
         Routes.x01Config:
             (_) => BlocParent(bloc: X01ConfigBloc(), child: X01ConfigScreen()),
-        Routes.x01:
-            (_) => BlocParent(bloc: X01ConfigBloc(), child: X01Screen()),
         Routes.settings:
             (_) => BlocParent(bloc: SettingsBloc(), child: SettingsScreen()),
+      },
+      onGenerateRoute: (settings) {
+        final Widget widget;
+        switch (settings.name) {
+          case Routes.x01:
+            widget = BlocParent(
+              bloc: X01Bloc(settings.arguments as UnmodifiableListView<Player>),
+              child: X01Screen(),
+            );
+            break;
+          default:
+            widget = ErrorScreen();
+            break;
+        }
+        return MaterialPageRoute(builder: (_) => widget);
       },
     );
   }

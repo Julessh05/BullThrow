@@ -1,10 +1,12 @@
-import 'package:bloc_implementation/bloc_implementation.dart';
+import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:bull_throw/blocs/x01_config_bloc.dart';
 import 'package:bull_throw/errors/duplicate_name_error.dart';
 import 'package:bull_throw/errors/empty_player_name.dart';
 import 'package:bull_throw/models/player.dart';
+import 'package:bull_throw/routes.dart';
 import 'package:flutter/material.dart';
 
+/// The config screen for an X01 Game
 final class X01ConfigScreen extends StatefulWidget {
   const X01ConfigScreen({super.key});
 
@@ -32,8 +34,8 @@ final class _X01ConfigScreenState extends State<X01ConfigScreen> {
     );
   }
 
+  /// Returns the body of this view
   Padding get _body {
-    Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.only(bottom: 24.0),
       child: Column(
@@ -41,11 +43,11 @@ final class _X01ConfigScreenState extends State<X01ConfigScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsets.only(bottom: 50, top: 16, left: 12, right: 12),
+            padding: EdgeInsets.only(top: 16, bottom: 0, left: 12, right: 12),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Initial points"),
+                Text("Initial points", style: TextStyle(fontSize: 16)),
                 DropdownButton<int>(
                   hint: Text("Points"),
                   value: _bloc!.points,
@@ -64,6 +66,10 @@ final class _X01ConfigScreenState extends State<X01ConfigScreen> {
               ],
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+            child: Divider(thickness: 0.5, color: Colors.grey.shade400),
+          ),
           Flexible(
             child: Column(
               children: [
@@ -75,6 +81,18 @@ final class _X01ConfigScreenState extends State<X01ConfigScreen> {
                   ),
                 ),
                 _playerList,
+                TextButton(
+                  onPressed: () {
+                    if (_bloc!.players.isNotEmpty) {
+                      Navigator.of(
+                        context,
+                      ).pushNamed(Routes.x01, arguments: _bloc!.players);
+                    } else {
+                      // TODO: handle empty List
+                    }
+                  },
+                  child: Text("Start Game"),
+                ),
               ],
             ),
           ),
@@ -83,6 +101,7 @@ final class _X01ConfigScreenState extends State<X01ConfigScreen> {
     );
   }
 
+  /// Returns the list of players
   Widget get _playerList {
     return Flexible(
       child: Column(
@@ -96,12 +115,12 @@ final class _X01ConfigScreenState extends State<X01ConfigScreen> {
               },
             ),
           ),
-          TextButton(onPressed: () {}, child: Text("Start Game")),
         ],
       ),
     );
   }
 
+  /// Returns the text field to add a new player via entering the name
   Padding get _newPlayerTextField {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -124,6 +143,7 @@ final class _X01ConfigScreenState extends State<X01ConfigScreen> {
     );
   }
 
+  /// Builds the container for a single provided player to display in the [_playerList]
   Padding _buildPlayerContainer(final Player player) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
