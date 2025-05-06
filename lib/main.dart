@@ -1,7 +1,7 @@
-import 'dart:collection';
+import 'dart:collection' show UnmodifiableListView;
 
 import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
-import 'package:bloc_implementation/bloc_implementation.dart';
+import 'package:bull_throw/blocs/homescreen_bloc.dart';
 import 'package:bull_throw/blocs/settings_bloc.dart';
 import 'package:bull_throw/blocs/x01_bloc.dart';
 import 'package:bull_throw/blocs/x01_config_bloc.dart';
@@ -12,18 +12,17 @@ import 'package:bull_throw/views/homescreen.dart';
 import 'package:bull_throw/views/settings_screen.dart';
 import 'package:bull_throw/views/x01_config_screen.dart';
 import 'package:bull_throw/views/x01_screen.dart';
+import 'package:flutter/cupertino.dart' show CupertinoScrollBehavior;
 import 'package:flutter/material.dart';
 import 'package:modern_themes/modern_themes.dart' show Themes;
 import 'package:string_translate/string_translate.dart'
     show Translation, TranslationLocales, TranslationDelegates;
 
-import 'blocs/homescreen_bloc.dart';
-
 void main() {
   runApp(const BullThrowApp());
 }
 
-class BullThrowApp extends StatefulWidget {
+final class BullThrowApp extends StatefulWidget {
   const BullThrowApp({super.key});
 
   @override
@@ -45,6 +44,17 @@ class _BullThrowAppState extends State<BullThrowApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      /* Debug Data */
+      debugShowCheckedModeBanner: true,
+      debugShowMaterialGrid: false,
+      checkerboardOffscreenLayers: false,
+      checkerboardRasterCacheImages: false,
+      showPerformanceOverlay: false,
+      showSemanticsDebugger: false,
+
+      /* General data */
+      scrollBehavior: const CupertinoScrollBehavior(),
+
       /* Locale */
       locale: Translation.activeLocale,
       supportedLocales: Translation.supportedLocales,

@@ -1,8 +1,9 @@
-import 'package:bloc_implementation/bloc_implementation.dart';
+import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:bull_throw/blocs/x01_bloc.dart';
 import 'package:bull_throw/models/player.dart';
 import 'package:bull_throw/views/components/DartboardPainter.dart';
 import 'package:flutter/material.dart';
+import 'package:modern_themes/modern_themes.dart' show Themes;
 
 final class X01Screen extends StatefulWidget {
   const X01Screen({super.key});
@@ -13,6 +14,10 @@ final class X01Screen extends StatefulWidget {
 
 final class _X01ScreenState extends State<X01Screen> {
   X01Bloc? _bloc;
+
+  /// Controller for Interactive Viewer in Dartboard used for zooming and calculation of tap position
+  final TransformationController _transformationController =
+      TransformationController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +31,7 @@ final class _X01ScreenState extends State<X01Screen> {
             height: size.height / 2,
             width: size.height / 2,
             child: Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(24.0),
               child: _dartsBoard,
             ),
           ),
@@ -45,7 +50,25 @@ final class _X01ScreenState extends State<X01Screen> {
 
   /// Returns the darts board, placed in the upper part of the screen
   Widget get _dartsBoard {
-    return CustomPaint(painter: DartboardPainter());
+    return GestureDetector(
+      onTapDown:
+          (tapDetails) => _bloc!.processThrow(
+            tapDetails,
+            context,
+            _transformationController,
+          ),
+      child: InteractiveViewer(
+        minScale: 1.0,
+        maxScale: 7.0,
+        scaleEnabled: true,
+        transformationController: _transformationController,
+        child: CustomPaint(
+          isComplex: false,
+          willChange: true,
+          painter: DartboardPainter(Themes.themeMode),
+        ),
+      ),
+    );
   }
 
   /// Builds a single player tile for the provided player
@@ -53,9 +76,18 @@ final class _X01ScreenState extends State<X01Screen> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text(player.name), Text(player.points.toString())],
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(player.name, style: TextStyle(fontWeight: FontWeight.bold)),
+              Text(
+                player.points.toString(),
+                style: TextStyle(fontWeight: FontWeight.w300),
+              ),
+            ],
+          ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -70,10 +102,20 @@ final class _X01ScreenState extends State<X01Screen> {
   }
 
   /// Builds the container displaying the points thrown by the player
-  Container _buildThrowContainer(final Player player, int position) {
+  Container _buildThrowContainer(final Player player, final int position) {
+    final Object? textObj = _bloc!.getPointsForPosition(player, position);
+    final String text = textObj != null ? textObj.toString() : "";
     return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+        shape: BoxShape.rectangle,
+        color: Colors.black12,
+      ),
       child: Text(
-        _bloc!.getPointsForPosition(player, position).toString() ?? "",
+        text,
+        style: TextStyle(
+          fontWeight: text.isEmpty ? FontWeight.w400 : FontWeight.normal,
+        ),
       ),
     );
   }

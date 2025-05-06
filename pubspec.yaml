@@ -31,6 +31,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  vector_math: ^2.1.4
+
   # own dependencies
   string_translate: ^1.4.5
   modern_themes: ^1.5.4

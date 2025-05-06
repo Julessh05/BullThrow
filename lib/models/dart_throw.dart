@@ -1,6 +1,10 @@
-final class DartThrow {
-  final int points;
-  final int multiplicator;
+enum Ring { normal, double, triple, innerBull, outerBull }
 
-  DartThrow(this.points, this.multiplicator);
+/// Represents a single thow of a player in a game
+final class DartThrow {
+  final int sector;
+  final Ring ring;
+  final int score;
+
+  DartThrow(this.sector, this.ring, this.score);
 }
