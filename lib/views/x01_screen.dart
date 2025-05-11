@@ -1,7 +1,7 @@
 import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:bull_throw/blocs/x01_bloc.dart';
 import 'package:bull_throw/models/player.dart';
-import 'package:bull_throw/views/components/DartboardPainter.dart';
+import 'package:bull_throw/views/components/dartboard_painter.dart';
 import 'package:flutter/material.dart';
 import 'package:modern_themes/modern_themes.dart' show Themes;
 
@@ -52,14 +52,16 @@ final class _X01ScreenState extends State<X01Screen> {
   Widget get _dartsBoard {
     return GestureDetector(
       onTapDown:
-          (tapDetails) => _bloc!.processThrow(
-            tapDetails,
-            context,
-            _transformationController,
+          (tapDetails) => setState(
+            () => _bloc!.processThrow(
+              tapDetails,
+              context,
+              _transformationController,
+            ),
           ),
       child: InteractiveViewer(
-        minScale: 1.0,
-        maxScale: 7.0,
+        minScale: 1,
+        maxScale: 7,
         scaleEnabled: true,
         transformationController: _transformationController,
         child: CustomPaint(

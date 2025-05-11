@@ -2,9 +2,8 @@ import 'dart:collection' show UnmodifiableListView;
 
 import 'package:bloc_implementation/bloc_implementation.dart' show Bloc;
 import 'package:bull_throw/errors/duplicate_name_error.dart';
+import 'package:bull_throw/errors/empty_player_name.dart';
 import 'package:bull_throw/models/player.dart';
-
-import '../errors/empty_player_name.dart';
 
 /// The bloc for the X01 game modes config screen
 final class X01ConfigBloc extends Bloc {

@@ -9,7 +9,7 @@ final class DartboardPainter extends CustomPainter {
   DartboardPainter(this.themeMode);
 
   /// The numbers of the Dartboard in order
-  static const _dartboardNumbers = [
+  static const dartboardNumbers = [
     20,
     1,
     18,
@@ -63,13 +63,13 @@ final class DartboardPainter extends CustomPainter {
       paint.color = sector.isEven ? Colors.red : Colors.green;
       path = Path();
       path.arcTo(
-        Rect.fromCircle(center: center, radius: radius * 0.582),
+        Rect.fromCircle(center: center, radius: radius * .582),
         startAngle,
         anglePerSector,
         false,
       );
       path.arcTo(
-        Rect.fromCircle(center: center, radius: radius * 0.629),
+        Rect.fromCircle(center: center, radius: radius * .629),
         startAngle + anglePerSector,
         -anglePerSector,
         false,
@@ -80,7 +80,7 @@ final class DartboardPainter extends CustomPainter {
       // Drawing doubles
       path = Path();
       path.arcTo(
-        Rect.fromCircle(center: center, radius: radius * 0.953),
+        Rect.fromCircle(center: center, radius: radius * .953),
         startAngle,
         anglePerSector,
         false,
@@ -101,7 +101,7 @@ final class DartboardPainter extends CustomPainter {
       final double label_dy = center.dy + labelRadius * sin(labelAngle);
       final Offset offset = Offset(label_dx, label_dy);
       final TextSpan textSpan = TextSpan(
-        text: _dartboardNumbers[sector].toString(),
+        text: dartboardNumbers[sector].toString(),
         style: TextStyle(
           color: themeMode == ThemeMode.dark ? Colors.white : Colors.black,
         ),
@@ -121,14 +121,14 @@ final class DartboardPainter extends CustomPainter {
     paint.style = PaintingStyle.fill;
     //Drawing inner and outer bull
     paint.color = Colors.green;
-    canvas.drawCircle(center, radius * 0.094, paint);
+    canvas.drawCircle(center, radius * .094, paint);
     paint.color = Colors.red;
-    canvas.drawCircle(center, radius * 0.037, paint);
+    canvas.drawCircle(center, radius * .037, paint);
   }
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    // TOOD: repaint when ThemeMode changed
+    // TODO: repaint when ThemeMode changed
     return false;
   }
 }
